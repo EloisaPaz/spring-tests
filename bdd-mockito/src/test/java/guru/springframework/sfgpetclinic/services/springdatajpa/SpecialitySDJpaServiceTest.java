@@ -53,21 +53,6 @@ class SpecialitySDJpaServiceTest {
     }
 
     @Test
-    void findByIdBddTest() {
-        //given
-        Speciality speciality = new Speciality();
-        given(specialtyRepository.findById(1L)).willReturn(Optional.of(speciality));
-
-        //when
-        Speciality foundSpecialty = service.findById(1L);
-
-        //then
-        assertThat(foundSpecialty).isNotNull();
-        then(specialtyRepository).should().findById(anyLong());
-        then(specialtyRepository).shouldHaveNoMoreInteractions();
-    }
-
-    @Test
     void deleteById() {
         //given - none
 
