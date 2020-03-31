@@ -16,6 +16,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.then;
 
@@ -35,9 +36,9 @@ class VisitSDJpaServiceTest {
         Visit visit = new Visit();
         Set<Visit> visits = new HashSet<>();
         visits.add(visit);
+        when(visitRepository.findAll()).thenReturn(visits);
 
         //when
-        when(visitRepository.findAll()).thenReturn(visits);
         Set<Visit> foundVisits = service.findAll();
 
         //then
@@ -50,9 +51,9 @@ class VisitSDJpaServiceTest {
     void findById() {
         //given
         Visit visit = new Visit();
+        when(visitRepository.findById(anyLong())).thenReturn(Optional.of(visit));
 
         //when
-        when(visitRepository.findById(anyLong())).thenReturn(Optional.of(visit));
         Visit foundVisit = service.findById(1L);
 
         //then
@@ -64,9 +65,9 @@ class VisitSDJpaServiceTest {
     void save() {
         //given
         Visit visit = new Visit();
-
+        given(visitRepository.save(any(Visit.class))).willReturn(visit);
+        
         //when
-        when(visitRepository.save(any(Visit.class))).thenReturn(visit);
         Visit savedVisit = service.save(new Visit());
 
         //then
