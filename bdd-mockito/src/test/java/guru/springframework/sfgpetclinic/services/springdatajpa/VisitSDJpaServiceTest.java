@@ -36,7 +36,7 @@ class VisitSDJpaServiceTest {
         Visit visit = new Visit();
         Set<Visit> visits = new HashSet<>();
         visits.add(visit);
-        when(visitRepository.findAll()).thenReturn(visits);
+        given(visitRepository.findAll()).willReturn(visits);
 
         //when
         Set<Visit> foundVisits = service.findAll();
@@ -51,7 +51,7 @@ class VisitSDJpaServiceTest {
     void findById() {
         //given
         Visit visit = new Visit();
-        when(visitRepository.findById(anyLong())).thenReturn(Optional.of(visit));
+        given(visitRepository.findById(anyLong())).willReturn(Optional.of(visit));
 
         //when
         Visit foundVisit = service.findById(1L);
@@ -66,7 +66,7 @@ class VisitSDJpaServiceTest {
         //given
         Visit visit = new Visit();
         given(visitRepository.save(any(Visit.class))).willReturn(visit);
-        
+
         //when
         Visit savedVisit = service.save(new Visit());
 
